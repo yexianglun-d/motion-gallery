@@ -15,7 +15,7 @@ function SplitTextDemo({ params, compact }) {
         {word.split('').map((ch, i) => (
           <span
             key={i}
-            className="font-bold text-white"
+            className="font-bold text-slate-900"
             style={{
               fontSize: compact ? 22 : 30,
               opacity: 0,
@@ -42,7 +42,7 @@ function TextRollDemo({ params, compact }) {
           {words.map((w, i) => (
             <div
               key={i}
-              className="flex items-center justify-center font-bold text-white"
+              className="flex items-center justify-center font-bold text-slate-900"
               style={{ height: h, fontSize: compact ? 20 : 26 }}
             >
               {w}
@@ -61,13 +61,13 @@ function TextMorphDemo({ params, compact }) {
     <Stage>
       <div className="relative" style={{ width: compact ? 90 : 110, height: fs }}>
         <span
-          className="absolute inset-0 flex items-center justify-center font-bold text-white"
+          className="absolute inset-0 flex items-center justify-center font-bold text-slate-900"
           style={{ animation: `demo-fade ${d}s ease-in-out infinite alternate` }}
         >
           Hello
         </span>
         <span
-          className="absolute inset-0 flex items-center justify-center font-bold text-aqua-400"
+          className="absolute inset-0 flex items-center justify-center font-bold text-aqua-500"
           style={{ animation: `demo-fade ${d}s ease-in-out infinite alternate-reverse` }}
         >
           世界
@@ -118,7 +118,7 @@ function TextWaveDemo({ params, compact }) {
         {word.split('').map((ch, i) => (
           <span
             key={i}
-            className="font-bold text-white"
+            className="font-bold text-slate-900"
             style={{
               fontSize: compact ? 22 : 28,
               '--amount': '10px',
@@ -139,7 +139,7 @@ function GlowTextDemo({ params, compact }) {
   return (
     <Stage>
       <span
-        className="font-bold text-white"
+        className="font-bold text-slate-900"
         style={{ fontSize: compact ? 24 : 32, animation: `demo-glow ${d}s ease-in-out infinite` }}
       >
         GLOW

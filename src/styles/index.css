@@ -4,7 +4,7 @@
 
 /* ---------- 基础 ---------- */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
@@ -14,41 +14,42 @@ body,
 }
 
 body {
-  @apply bg-ink-900 text-slate-200 font-sans antialiased;
+  @apply bg-ink-700 text-slate-700 font-sans antialiased;
+  background-color: #f3f5f9;
   background-image:
-    radial-gradient(900px 500px at 85% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
-    radial-gradient(700px 420px at -10% 0%, rgba(34, 211, 238, 0.12), transparent 55%);
+    radial-gradient(900px 500px at 85% -10%, rgba(99, 102, 241, 0.1), transparent 60%),
+    radial-gradient(700px 420px at -10% 0%, rgba(6, 182, 212, 0.08), transparent 55%);
   background-attachment: fixed;
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.4);
-  color: #fff;
+  background: rgba(99, 102, 241, 0.22);
+  color: #1e293b;
 }
 
 /* ---------- 滚动条 ---------- */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #273152 transparent;
+  scrollbar-color: #cbd5e1 transparent;
 }
 *::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #273152;
+  background: #cbd5e1;
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: #334066;
+  background: #94a3b8;
   background-clip: content-box;
 }
 
 /* ---------- 焦点可达性 ---------- */
 :focus-visible {
-  outline: 2px solid #818cf8;
+  outline: 2px solid #6366f1;
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -61,11 +62,11 @@ body {
   }
 
   .card-surface {
-    @apply rounded-2xl border border-white/5 bg-ink-800/80 backdrop-blur-sm;
+    @apply rounded-2xl border border-slate-200/80 bg-ink-800/90 backdrop-blur-sm;
   }
 
   .control-range {
-    @apply h-1.5 w-full cursor-pointer appearance-none rounded-full bg-ink-600;
+    @apply h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200;
   }
   .control-range::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -74,15 +75,15 @@ body {
     height: 16px;
     border-radius: 999px;
     background: linear-gradient(135deg, #818cf8, #22d3ee);
-    border: 2px solid #0b1020;
-    box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.6);
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.25);
   }
   .control-range::-moz-range-thumb {
     width: 16px;
     height: 16px;
     border-radius: 999px;
     background: linear-gradient(135deg, #818cf8, #22d3ee);
-    border: 2px solid #0b1020;
+    border: 2px solid #ffffff;
   }
 }
 
@@ -103,10 +104,10 @@ code[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #5b6b8c;
+  color: #94a3b8;
 }
 .token.punctuation {
-  color: #94a3b8;
+  color: #475569;
 }
 .token.property,
 .token.tag,
@@ -114,36 +115,36 @@ code[class*='language-'] {
 .token.number,
 .token.constant,
 .token.symbol {
-  color: #c084fc;
+  color: #7c3aed;
 }
 .token.selector,
 .token.attr-name,
 .token.string,
 .token.char,
 .token.builtin {
-  color: #86efac;
+  color: #059669;
 }
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #67e8f9;
+  color: #0891b2;
   background: transparent !important;
 }
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #f0abfc;
+  color: #4f46e5;
 }
 .token.function,
 .token.class-name {
-  color: #7dd3fc;
+  color: #0284c7;
 }
 .token.regex,
 .token.important,
 .token.variable {
-  color: #fca5a5;
+  color: #e11d48;
 }
 
 /* ---------- 尊重系统减弱动效偏好 ---------- */
