@@ -11,6 +11,13 @@ export default function EffectCard({ effect, onOpen, index = 0 }) {
     return () => clearTimeout(timer)
   }, [index])
 
+  // 入场类是一次性动画，在卡片里每隔约 2.8 秒自动重播，确保随时能看到完整过程
+  useEffect(() => {
+    if (effect.category !== 'entrance') return undefined
+    const id = setInterval(() => setReplayKey((k) => k + 1), 2800)
+    return () => clearInterval(id)
+  }, [effect.category])
+
   const params = defaultParams(effect)
 
   return (
