@@ -19,7 +19,7 @@ export default function App() {
     setToast(message)
     if (toastTimer.current) clearTimeout(toastTimer.current)
     toastTimer.current = setTimeout(() => setToast(''), 2000)
-  }, [])
+  })
 
   // 复制代码：优先 Clipboard API，失败时降级
   const handleCopy = useCallback(
@@ -72,7 +72,7 @@ export default function App() {
 
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
         <div className="mb-5">
-          <h1 className="text-lg font-semibold text-white">
+          <h1 className="text-lg font-semibold text-slate-900">
             {searching ? `搜索结果（${visibleEffects.length}）` : currentCategory.name}
           </h1>
           <p className="mt-1 text-xs text-slate-500">

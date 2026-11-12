@@ -7,7 +7,7 @@ function NeumorphismDemo({ compact }) {
   const pressed = manual === null ? pulse > 0.5 : manual
   const size = 76
   return (
-    <Stage style={{ background: '#0f1528' }}>
+    <Stage style={{ background: '#eef1f6' }}>
       <button
         type="button"
         aria-label="新拟态按钮"
@@ -16,10 +16,10 @@ function NeumorphismDemo({ compact }) {
           width: size,
           height: size,
           borderRadius: '50%',
-          background: '#0f1528',
+          background: '#eef1f6',
           boxShadow: pressed
-            ? 'inset 7px 7px 14px #050813, inset -7px -7px 14px #19223d'
-            : '8px 8px 16px #050813, -8px -8px 16px #19223d',
+            ? 'inset 6px 6px 12px #c5ccd6, inset -6px -6px 12px #ffffff'
+            : '8px 8px 16px #c5ccd6, -8px -8px 16px #ffffff',
         }}
       />
     </Stage>
@@ -49,7 +49,7 @@ function ParallaxDemo({ compact }) {
   const [ax] = useAutoMove(compact)
   const p = manual === null ? ax : manual
   const layers = [
-    { factor: 12, size: 26, color: '#273152', top: '22%' },
+    { factor: 12, size: 26, color: '#94a3b8', top: '22%' },
     { factor: 28, size: 38, color: '#4f46e5', top: '40%' },
     { factor: 46, size: 52, color: '#22d3ee', top: '52%' },
   ]
@@ -89,7 +89,7 @@ function GlitchDemo({ params, compact }) {
   return (
     <Stage>
       <span
-        className="font-bold text-white"
+        className="font-bold text-slate-900"
         style={{ fontSize: compact ? 22 : 28, animation: `demo-glitch ${d}s steps(1) infinite` }}
       >
         GLITCH
@@ -103,7 +103,7 @@ function AberrationDemo({ params, compact }) {
   return (
     <Stage>
       <span
-        className="font-bold text-white"
+        className="font-bold text-slate-900"
         style={{ fontSize: compact ? 20 : 26, animation: `demo-aberration ${d}s steps(1) infinite` }}
       >
         RGB
