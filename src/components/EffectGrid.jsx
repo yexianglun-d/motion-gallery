@@ -7,7 +7,7 @@ export default function EffectGrid({ effects, onOpen, searchTerm }) {
       <div className="flex flex-col items-center justify-center gap-3 py-24 text-slate-500">
         <SearchX size={36} strokeWidth={1.5} />
         <p className="text-sm">没有找到与“{searchTerm}”相关的动效</p>
-        <p className="text-xs text-slate-600">试试更换关键词，或清除搜索浏览全部分类</p>
+        <p className="text-xs text-slate-400">试试更换关键词，或清除搜索浏览全部分类</p>
       </div>
     )
   }

@@ -22,7 +22,7 @@ export default function CodeBlock({ code, language = 'jsx', onCopy }) {
       <button
         type="button"
         onClick={onCopy}
-        className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-lg border border-white/10 bg-ink-700/90 px-2.5 py-1.5 text-xs text-slate-300 transition hover:bg-ink-600 hover:text-white"
+        className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-lg border border-slate-200 bg-ink-700/90 px-2.5 py-1.5 text-xs text-slate-700 transition hover:bg-ink-600 hover:text-slate-900"
       >
         <Copy size={13} />
         复制代码
