@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import '../styles/demos.css'
 import '../styles/demos-extra.css'
-import { Blob, Stage, EASE_CSS, num, str } from './shared.jsx'
+import { Blob, Stage, EASE_CSS, num, str, useAutoMove, useAutoPulse } from './shared.jsx'
 import entranceExtra from './entrance-extra.jsx'
 import loopExtra from './loop-extra.jsx'
 import interactionExtra from './interaction-extra.jsx'
@@ -102,13 +102,15 @@ function ShakeDemo({ params, compact }) {
 function HoverLiftDemo({ params, compact }) {
   const d = num(params, 'duration', 0.3)
   const amount = num(params, 'amount', 10)
-  const [hover, setHover] = useState(false)
+  const [manual, setManual] = useState(null)
+  const pulse = useAutoPulse(compact, 1800)
+  const hover = manual === null ? pulse > 0.5 : manual
   return (
     <Stage>
       <Blob
         size={compact ? 48 : 64}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
+        onMouseEnter={() => setManual(true)}
+        onMouseLeave={() => setManual(null)}
         style={{
           transform: hover ? `translateY(${-amount}px)` : 'translateY(0)',
           boxShadow: hover ? '0 20px 42px -12px rgba(99,102,241,0.75)' : undefined,
@@ -280,20 +282,22 @@ function TiltDemo({ params, compact }) {
   const max = num(params, 'amount', 12)
   const d = num(params, 'duration', 0.2)
   const ref = useRef(null)
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0 })
-
-  function handleMove(e) {
-    const el = ref.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const px = (e.clientX - rect.left) / rect.width - 0.5
-    const py = (e.clientY - rect.top) / rect.height - 0.5
-    setTilt({ rx: py * -max, ry: px * max })
-  }
+  const [manual, setManual] = useState(null)
+  const [ax, ay] = useAutoMove(compact)
+  const tilt = manual ?? { rx: ay * max, ry: ax * max }
 
   return (
     <Stage>
-      <div ref={ref} onMouseMove={handleMove} onMouseLeave={() => setTilt({ rx: 0, ry: 0 })} style={{ perspective: 600 }}>
+      <div
+        ref={ref}
+        onMouseMove={(e) => {
+          const rect = ref.current.getBoundingClientRect()
+          const px = (e.clientX - rect.left) / rect.width - 0.5
+          const py = (e.clientY - rect.top) / rect.height - 0.5
+          setManual({ rx: py * -max, ry: px * max })}
+        onMouseLeave={() => setManual(null)}
+        style={{ perspective: 600 }}
+      >
         <Blob
           size={compact ? 72 : 96}
           style={{
