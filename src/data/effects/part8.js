@@ -271,7 +271,7 @@ const bg = useMotionTemplate\`radial-gradient(130px circle at \${x} ... )\`
       gsap: `gsap.to('.box', {
   rotationX: 360,
   rotationY: 180,
-  transformPerspective 700,
+  transformPerspective: 700,
   duration: 3,
   ease: 'none',
   repeat: -1,
