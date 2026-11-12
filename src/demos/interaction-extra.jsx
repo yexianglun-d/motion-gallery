@@ -1,19 +1,25 @@
-import { useRef, useState } from 'react'
-import { Blob, Stage, num } from './shared.jsx'
+import { useEffect, useRef, useState } from 'react'
+import { Blob, Stage, num, useAutoMove, useAutoPulse } from './shared.jsx'
 
 function RippleDemo({ compact }) {
   const [ripples, setRipples] = useState([])
   const size = compact ? 80 : 96
-  function handleClick(e) {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const s = Math.max(rect.width, rect.height)
+  function spawn(px, py) {
+    const s = size
     const id = Math.random()
-    setRipples((r) => [
-      ...r,
-      { id, x: e.clientX - rect.left - s / 2, y: e.clientY - rect.top - s / 2, s },
-    ])
+    setRipples((r) => [...r, { id, x: px - s / 2, y: py - s / 2, s }])
     setTimeout(() => setRipples((r) => r.filter((x) => x.id !== id)), 600)
   }
+  function handleClick(e) {
+    const rect = e.currentTarget.getBoundingClientRect()
+    spawn(e.clientX - rect.left, e.clientY - rect.top)
+  }
+  // 自动演示：周期性在中心产生涟漪
+  useEffect(() => {
+    if (!compact) return undefined
+    const id = setInterval(() => spawn(size / 2, size / 2), 1200)
+    return () => clearInterval(id)
+  }, [compact])
   return (
     <Stage>
       <button
@@ -45,20 +51,21 @@ function RippleDemo({ compact }) {
 
 function MagneticDemo({ compact }) {
   const ref = useRef(null)
-  const [t, setT] = useState({ x: 0, y: 0 })
-  function handleMove(e) {
-    const r = ref.current.getBoundingClientRect()
-    setT({
-      x: (e.clientX - (r.left + r.width / 2)) * 0.4,
-      y: (e.clientY - (r.top + r.height / 2)) * 0.4,
-    })
-  }
+  const [manual, setManual] = useState(null)
+  const [ax, ay] = useAutoMove(compact)
+  const t = manual ?? { x: ax * 18, y: ay * 18 }
   return (
     <Stage>
       <div
         ref={ref}
-        onMouseMove={handleMove}
-        onMouseLeave={() => setT({ x: 0, y: 0 })}
+        onMouseMove={(e) => {
+          const r = ref.current.getBoundingClientRect()
+          setManual({
+            x: (e.clientX - (r.left + r.width / 2)) * 0.4,
+            y: (e.clientY - (r.top + r.height / 2)) * 0.4,
+          })
+        }}
+        onMouseLeave={() => setManual(null)}
         style={{ transform: `translate(${t.x}px,${t.y}px)`, transition: 'transform .3s ease' }}
       >
         <Blob size={compact ? 48 : 60} />
@@ -69,15 +76,17 @@ function MagneticDemo({ compact }) {
 
 function PressDemo({ params, compact }) {
   const d = num(params, 'duration', 0.15)
-  const [p, setP] = useState(false)
+  const [manual, setManual] = useState(null)
+  const pulse = useAutoPulse(compact, 1400)
+  const pressed = manual === null ? pulse > 0.55 : manual
   return (
     <Stage>
       <Blob
         size={compact ? 48 : 60}
-        onMouseDown={() => setP(true)}
-        onMouseUp={() => setP(false)}
-        onMouseLeave={() => setP(false)}
-        style={{ transform: p ? 'scale(.9)' : 'scale(1)', transition: `transform ${d}s ease` }}
+        onMouseDown={() => setManual(true)}
+        onMouseUp={() => setManual(null)}
+        onMouseLeave={() => setManual(null)}
+        style={{ transform: pressed ? 'scale(.9)' : 'scale(1)', transition: `transform ${d}s ease` }}
       />
     </Stage>
   )
@@ -86,6 +95,20 @@ function PressDemo({ params, compact }) {
 function SwipeDemo({ compact }) {
   const [x, setX] = useState(0)
   const [gone, setGone] = useState(false)
+  // 自动演示：周期模拟左右侧滑飞出再回来
+  useEffect(() => {
+    if (!compact) return undefined
+    let step = 0
+    const id = setInterval(() => {
+      step += 1
+      const m = step % 4
+      if (m === 0) { setGone(true); setX(120) }
+      else if (m === 1) { setGone(false); setX(0) }
+      else if (m === 2) { setGone(true); setX(-120) }
+      else { setGone(false); setX(0) }
+    }, 750)
+    return () => clearInterval(id)
+  }, [compact])
   function handleDown(e) {
     const startX = e.clientX
     function move(ev) { setX(ev.clientX - startX) }
@@ -145,21 +168,23 @@ function DragDemo() {
 
 function HoldDemo({ params, compact }) {
   const fillMs = num(params, 'duration', 1.2)
-  const [prog, setProg] = useState(0)
+  const [manual, setManual] = useState(null)
+  const pulse = useAutoPulse(compact, 1800)
+  const prog = manual === null ? pulse : manual
   const raf = useRef(null)
   const start = useRef(0)
   function begin() {
     start.current = performance.now()
     const loop = (now) => {
       const p = Math.min((now - start.current) / (fillMs * 1000), 1)
-      setProg(p)
+      setManual(p)
       if (p < 1) raf.current = requestAnimationFrame(loop)
     }
     raf.current = requestAnimationFrame(loop)
   }
   function end() {
     cancelAnimationFrame(raf.current)
-    setProg(0)
+    setManual(null)
   }
   const size = compact ? 70 : 84
   return (
@@ -190,15 +215,14 @@ function HoldDemo({ params, compact }) {
 
 function ButtonMorphDemo({ params, compact }) {
   const d = num(params, 'duration', 0.4)
-  const [sent, setSent] = useState(false)
+  const [manual, setManual] = useState(null)
+  const pulse = useAutoPulse(compact, 2400)
+  const sent = manual === null ? pulse > 0.62 : manual
   return (
     <Stage>
       <button
         type="button"
-        onClick={() => {
-          setSent(true)
-          setTimeout(() => setSent(false), 1400)
-        }}
+        onClick={() => setManual(sent ? false : true)}
         className="flex items-center justify-center bg-gradient-to-r from-brand-500 to-aqua-500 text-sm text-white"
         style={{
           width: compact ? 112 : 134,
