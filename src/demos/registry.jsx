@@ -135,16 +135,16 @@ function ToggleSwitchDemo({ params, compact }) {
         aria-checked={on}
         aria-label="开关切换"
         onClick={() => setOn((v) => !v)}
-        className="relative rounded-full border border-white/10"
+        className="relative rounded-full border border-slate-300"
         style={{
           width: w,
           height: h,
-          background: on ? 'linear-gradient(90deg,#6366f1,#22d3ee)' : '#1c2540',
+          background: on ? 'linear-gradient(90deg,#6366f1,#22d3ee)' : '#cbd5e1',
           transition: `background ${d}s ease`,
         }}
       >
         <span
-          className="absolute top-1/2 rounded-full bg-white shadow"
+          className="absolute top-1/2 rounded-full bg-white shadow ring-1 ring-slate-900/10"
           style={{
             width: circle,
             height: circle,
@@ -167,7 +167,7 @@ function GlassDemo() {
         <div className="absolute -left-4 top-6 h-20 w-20 rounded-full bg-brand-500/70 blur-xl" />
         <div className="absolute bottom-4 right-2 h-24 w-24 rounded-full bg-aqua-500/60 blur-xl" />
       </div>
-      <div className="relative rounded-2xl border border-white/25 bg-white/10 px-5 py-4 text-sm text-white backdrop-blur-md">
+      <div className="relative rounded-2xl border border-slate-300/70 bg-white/50 px-5 py-4 text-sm text-slate-800 backdrop-blur-md">
         Glassmorphism
       </div>
     </Stage>
@@ -189,7 +189,7 @@ function GradientBorderDemo({ params, compact }) {
           animation: `demo-gradient-flow ${d}s linear infinite`,
         }}
       >
-        <div className="flex h-full w-full items-center justify-center rounded-[14px] bg-ink-800 text-xs text-slate-300">
+        <div className="flex h-full w-full items-center justify-center rounded-[14px] bg-ink-800 text-xs text-slate-500">
           渐变边框
         </div>
       </div>
@@ -233,7 +233,7 @@ function SpinnerDemo({ params, compact }) {
           width: size,
           height: size,
           borderRadius: '50%',
-          border: '4px solid #273152',
+          border: '4px solid #e2e8f0',
           borderTopColor: '#22d3ee',
           animation: `demo-spin ${d}s linear infinite`,
         }}
@@ -258,7 +258,7 @@ function ProgressRingDemo({ params, compact }) {
             <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
         </defs>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#1c2540" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e2e8f0" strokeWidth={stroke} />
         <circle
           cx={size / 2}
           cy={size / 2}
