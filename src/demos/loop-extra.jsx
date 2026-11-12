@@ -13,7 +13,7 @@ function MarqueeDemo({ params, compact }) {
           style={{ animation: `demo-marquee ${d}s linear infinite` }}
         >
           {doubled.map((w, i) => (
-            <span key={i} className="text-sm text-slate-300">{w}</span>
+            <span key={i} className="text-sm text-slate-700">{w}</span>
           ))}
         </div>
       </div>
@@ -31,7 +31,7 @@ function ShimmerDemo({ params, compact }) {
           height: compact ? 18 : 24,
           borderRadius: 8,
           background:
-            'linear-gradient(90deg,#1c2540 25%,#334066 50%,#1c2540 75%)',
+            'linear-gradient(90deg,#e2e8f0 25%,#f1f5f9 50%,#e2e8f0 75%)',
           backgroundSize: '200% 100%',
           animation: `demo-shimmer ${d}s linear infinite`,
         }}
@@ -86,7 +86,7 @@ function TypewriterDemo({ params, compact, replayKey }) {
     <Stage>
       <span className="font-mono" style={{ fontSize: compact ? 18 : 22 }}>
         {text.slice(0, n)}
-        <span className="ml-0.5 inline-block w-[2px] animate-pulse text-aqua-400">|</span>
+        <span className="ml-0.5 inline-block w-[2px] animate-pulse text-aqua-500">|</span>
       </span>
     </Stage>
   )

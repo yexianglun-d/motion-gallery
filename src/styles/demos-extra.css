@@ -53,10 +53,10 @@
   80% { transform: translate(2px, -2px); }
 }
 @keyframes demo-aberration {
-  0%, 100% { text-shadow: -1.5px 0 #f0abfc, 1.5px 0 #22d3ee; }
-  25% { text-shadow: 1.5px 0 #f0abfc, -1.5px 0 #22d3ee; }
-  50% { text-shadow: -2px 1px #f0abfc, 2px -1px #22d3ee; }
-  75% { text-shadow: 2px 0 #f0abfc, -2px 0 #22d3ee; }
+  0%, 100% { text-shadow: -1.5px 0 #d946ef, 1.5px 0 #0891b2; }
+  25% { text-shadow: 1.5px 0 #d946ef, -1.5px 0 #0891b2; }
+  50% { text-shadow: -2px 1px #d946ef, 2px -1px #0891b2; }
+  75% { text-shadow: 2px 0 #d946ef, -2px 0 #0891b2; }
 }
 @keyframes demo-morph {
   0%, 100% { border-radius: 20% 80% 70% 30% / 30% 30% 70% 70%; }
@@ -65,16 +65,16 @@
 
 /* ---- 文字 ---- */
 @keyframes demo-text-stroke {
-  0%, 100% { color: transparent; -webkit-text-stroke: 2px #818cf8; }
-  50% { color: #818cf8; -webkit-text-stroke: 2px transparent; }
+  0%, 100% { color: transparent; -webkit-text-stroke: 2px #6366f1; }
+  50% { color: #6366f1; -webkit-text-stroke: 2px transparent; }
 }
 @keyframes demo-cursor-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
 @keyframes demo-glow {
-  0%, 100% { text-shadow: 0 0 6px rgba(129,140,248,.6), 0 0 14px rgba(34,211,238,.4); }
-  50% { text-shadow: 0 0 12px rgba(129,140,248,.95), 0 0 28px rgba(34,211,238,.7); }
+  0%, 100% { text-shadow: 0 0 6px rgba(99,102,241,.5), 0 0 14px rgba(6,182,212,.35); }
+  50% { text-shadow: 0 0 12px rgba(99,102,241,.85), 0 0 28px rgba(6,182,212,.65); }
 }
 
 /* ---- 加载 ---- */
@@ -91,7 +91,7 @@
 /* ---- 3D / 空间 ---- */
 @keyframes demo-orbit {
   from { transform: rotate(0) translateX(var(--radius, 42px)) rotate(0); }
-  to   { transform: rotate(360deg) translateX(var(--radius, 42px)) rotate(-360deg); }
+  to   { transform: rotate(360px) translateX(var(--radius, 42px)) rotate(-36deg); }
 }
 @keyframes demo-rotate3d {
   from { transform: perspective(700px) rotateX(0) rotateY(0); }
@@ -108,8 +108,8 @@
 @keyframes demo-motion-blur {
   0%   { transform: translateX(-70px); filter: blur(0); }
   40%  { transform: translateX(70px); filter: blur(4px); }
-  50%  { transform: translateX(70px); filter: blur(0); }
-  90%  { transform: translateX(-70px); filter: blur(4px); }
+  50% { transform: translateX(70px); filter: blur(0); }
+  90% { transform: translateX(-70px); filter: blur(4px); }
   100% { transform: translateX(-70px); filter: blur(0); }
 }
 @keyframes demo-text-roll {
