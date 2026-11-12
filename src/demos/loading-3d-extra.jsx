@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { Blob, Stage, num } from './shared.jsx'
+import { useEffect, useRef, useState } from 'react'
+import { Blob, Stage, num, useAutoMove, useAutoPulse } from './shared.jsx'
 
 const skeletonBg = {
   background: 'linear-gradient(90deg,#1c2540 25%,#334066 50%,#1c2540 75%)',
@@ -42,9 +42,14 @@ function ProgressBarDemo({ params }) {
 }
 
 function SuccessCheckDemo() {
+  const [cycle, setCycle] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setCycle((c) => c + 1), 2200)
+    return () => clearInterval(id)
+  }, [])
   return (
     <Stage>
-      <svg width={76} height={76} viewBox="0 0 52 52">
+      <svg key={cycle} width={76} height={76} viewBox="0 0 52 52">
         <circle
           cx={26} cy={26} r={24} fill="none" stroke="#22d3ee" strokeWidth={2}
           strokeDasharray={151}
@@ -109,37 +114,39 @@ function DotsDemo() {
 /* ---------------- 3D / 空间 / 鼠标 ---------------- */
 
 function SpotlightDemo({ compact }) {
-  const ref = useRef(null)
+  const [manual, setManual] = useState(null)
+  const [ax, ay] = useAutoMove(compact)
+  const px = manual ? manual.x : (ax + 1) / 2
+  const py = manual ? manual.y : (ay + 1) / 2
   return (
     <Stage>
       <div
-        ref={ref}
         onMouseMove={(e) => {
-          const r = ref.current.getBoundingClientRect()
-          ref.current.style.setProperty('--x', `${e.clientX - r.left}px`)
-          ref.current.style.setProperty('--y', `${e.clientY - r.top}px`)
-        }}
+          const r = e.currentTarget.getBoundingClientRect()
+          setManual({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height })}
+        onMouseLeave={() => setManual(null)}
         className="rounded-xl border border-white/10"
         style={{
           width: compact ? 120 : 165,
           height: compact ? 72 : 92,
-          background:
-            'radial-gradient(130px circle at var(--x,50%) var(--y,50%),rgba(129,140,248,.28),transparent 70%)',
+          background: `radial-gradient(130px circle at ${px * 100}% ${py * 100}%,rgba(129,140,248,.28),transparent 70%)`,
         }}
       />
     </Stage>
   )
 }
 
-function CursorFollowerDemo() {
-  const [p, setP] = useState({ x: 0, y: 0 })
+function CursorFollowerDemo({ compact }) {
+  const [manual, setManual] = useState(null)
+  const [ax, ay] = useAutoMove(compact)
+  const range = 34
+  const p = manual ?? { x: ax * range, y: ay * range }
   return (
     <Stage
       onMouseMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect()
-        setP({ x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 })
-      }}
-      onMouseLeave={() => setP({ x: 0, y: 0 })}
+        setManual({ x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 })}
+      onMouseLeave={() => setManual(null)}
     >
       <span
         style={{
@@ -156,9 +163,11 @@ function CursorFollowerDemo() {
   )
 }
 
-function DepthParallaxDemo() {
+function DepthParallaxDemo({ compact }) {
   const ref = useRef(null)
-  const [r, setR] = useState({ rx: 0, ry: 0 })
+  const [manual, setManual] = useState(null)
+  const [ax, ay] = useAutoMove(compact)
+  const rot = manual ?? { rx: ay * 14, ry: ax * 14 }
   return (
     <Stage>
       <div
@@ -167,15 +176,14 @@ function DepthParallaxDemo() {
           const b = ref.current.getBoundingClientRect()
           const px = (e.clientX - b.left) / b.width - 0.5
           const py = (e.clientY - b.top) / b.height - 0.5
-          setR({ rx: py * -14, ry: px * 14 })
-        }}
-        onMouseLeave={() => setR({ rx: 0, ry: 0 })}
+          setManual({ rx: py * -14, ry: px * 14 })}
+        onMouseLeave={() => setManual(null)}
         style={{ perspective: 700 }}
       >
         <div
           style={{
             transformStyle: 'preserve-3d',
-            transform: `rotateX(${r.rx}deg) rotateY(${r.ry}deg)`,
+            transform: `rotateX(${rot.rx}deg) rotateY(${rot.ry}deg)`,
             transition: 'transform .2s ease',
           }}
         >
