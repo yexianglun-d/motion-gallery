@@ -145,7 +145,7 @@ gsap.to('.b', { opacity: 1, duration: 1, yoyo: true, repeat: -1 })`,
       css: `.cursor {
   width: 3px;
   height: 34px;
-  background: #22d3ee;
+  background: '#22d3ee',
   animation: blink 1s step-end infinite;
 }
 @keyframes blink {
@@ -182,7 +182,7 @@ gsap.to('.b', { opacity: 1, duration: 1, yoyo: true, repeat: -1 })`,
   animation: charWave 1.4s ease-in-out infinite;
 }
 .text-wave span:nth-child(2) { animation-delay: .15s; }
-.text-wave span:nth-child(3) { animation-delay: .3; }
+.text-wave span:nth-child(3) { animation-delay: .3s; }
 .text-wave span:nth-child(4) { animation-delay: .45s; }
 @keyframes charWave {
   0%, 100% { transform: translateY(0); }
@@ -235,7 +235,7 @@ gsap.to('.b', { opacity: 1, duration: 1, yoyo: true, repeat: -1 })`,
     textShadow: [
       '0 0 6px rgba(129,140,248,.6)',
       '0 0 28px rgba(34,211,238,.8)',
-      '0 0 6px rgba(129,140,248,.6)',
+      '0 0 6px rgba(129,140,248,.6),
     ],
   }}
   transition={{ duration: 1.8, repeat: Infinity }}
