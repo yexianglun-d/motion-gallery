@@ -3,6 +3,7 @@ import DemoStage from '../demos/registry.jsx'
 import { defaultParams } from '../data/effects/index.js'
 
 export default function EffectCard({ effect, onOpen, index = 0 }) {
+  // 0 表示尚未激活（静态起点）；挂载后自动播放，hover 时重播
   const [replayKey, setReplayKey] = useState(0)
 
   useEffect(() => {
