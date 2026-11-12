@@ -1,11 +1,17 @@
+import { useEffect, useState } from 'react'
 import { Stage, num } from './shared.jsx'
 
 function SplitTextDemo({ params, compact }) {
   const d = num(params, 'duration', 0.8)
+  const [cycle, setCycle] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setCycle((c) => c + 1), 2600)
+    return () => clearInterval(id)
+  }, [])
   const word = 'MOTION'
   return (
     <Stage>
-      <div className="flex">
+      <div className="flex" key={cycle}>
         {word.split('').map((ch, i) => (
           <span
             key={i}

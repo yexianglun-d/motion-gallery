@@ -1,4 +1,41 @@
 // 演示组件共享辅助：缓动映射、通用演示元素、参数读取
+import { useEffect, useState } from 'react'
+
+// 自动演示：平滑周期变化的归一化坐标 [x, y]，范围 -1~1（用于鼠标跟随/倾斜/磁吸等）
+export function useAutoMove(enabled, period = 2600) {
+  const [v, setV] = useState({ x: 0, y: 0 })
+  useEffect(() => {
+    if (!enabled) return undefined
+    let raf
+    const start = performance.now()
+    const loop = (now) => {
+      const t = ((now - start) / period) * Math.PI * 2
+      setV({ x: Math.sin(t), y: Math.sin(t * 0.8 + Math.PI / 3) })
+      raf = requestAnimationFrame(loop)
+    }
+    raf = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(raf)
+  }, [enabled, period])
+  return [v.x, v.y]
+}
+
+// 自动演示：0~1 循环进度（用于按压/长按填充/状态切换等）
+export function useAutoPulse(enabled, period = 1800) {
+  const [v, setV] = useState(0)
+  useEffect(() => {
+    if (!enabled) return undefined
+    let raf
+    const start = performance.now()
+    const loop = (now) => {
+      const t = ((now - start) % period) / period
+      setV(t)
+      raf = requestAnimationFrame(loop)
+    }
+    raf = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(raf)
+  }, [enabled, period])
+  return v
+}
 
 // 控件中的语义缓动 → CSS timing-function
 export const EASE_CSS = {

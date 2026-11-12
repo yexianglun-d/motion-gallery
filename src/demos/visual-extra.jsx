@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { Blob, Stage, num } from './shared.jsx'
+import { Blob, Stage, num, useAutoMove, useAutoPulse } from './shared.jsx'
 
-function NeumorphismDemo() {
-  const [pressed, setPressed] = useState(false)
+function NeumorphismDemo({ compact }) {
+  const [manual, setManual] = useState(null)
+  const pulse = useAutoPulse(compact, 1800)
+  const pressed = manual === null ? pulse > 0.5 : manual
   const size = 76
   return (
     <Stage style={{ background: '#0f1528' }}>
       <button
         type="button"
         aria-label="新拟态按钮"
-        onClick={() => setPressed((v) => !v)}
+        onClick={() => setManual(pressed ? false : true)}
         style={{
           width: size,
           height: size,
@@ -42,8 +44,10 @@ function MotionBlurDemo({ params, compact }) {
   )
 }
 
-function ParallaxDemo() {
-  const [p, setP] = useState(0)
+function ParallaxDemo({ compact }) {
+  const [manual, setManual] = useState(null)
+  const [ax] = useAutoMove(compact)
+  const p = manual === null ? ax : manual
   const layers = [
     { factor: 12, size: 26, color: '#273152', top: '22%' },
     { factor: 28, size: 38, color: '#4f46e5', top: '40%' },
@@ -53,9 +57,9 @@ function ParallaxDemo() {
     <Stage
       onMouseMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect()
-        setP((e.clientX - r.left) / r.width - 0.5)
+        setManual((e.clientX - r.left) / r.width - 0.5)
       }}
-      onMouseLeave={() => setP(0)}
+      onMouseLeave={() => setManual(null)}
     >
       <div className="relative h-full w-full">
         {layers.map((l, i) => (
