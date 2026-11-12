@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Blob, Stage, num, useAutoMove, useAutoPulse } from './shared.jsx'
 
 const skeletonBg = {
-  background: 'linear-gradient(90deg,#1c2540 25%,#334066 50%,#1c2540 75%)',
+  background: 'linear-gradient(90deg,#e2e8f0 25%,#f1f5f9 50%,#e2e8f0 75%)',
   backgroundSize: '200% 100%',
   animation: 'demo-shimmer 1.4s linear infinite',
 }
@@ -126,7 +126,7 @@ function SpotlightDemo({ compact }) {
           setManual({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height })
         }}
         onMouseLeave={() => setManual(null)}
-        className="rounded-xl border border-white/10"
+        className="rounded-xl border border-slate-200"
         style={{
           width: compact ? 120 : 165,
           height: compact ? 72 : 92,
@@ -199,7 +199,7 @@ function DepthParallaxDemo({ compact }) {
                 width: 72,
                 height: 72,
                 borderRadius: 12,
-                background: ['#273152', '#4f46e5', '#22d3ee'][i],
+                background: ['#94a3b8', '#4f46e5', '#22d3ee'][i],
                 opacity: 0.9,
                 transform: `translateZ(${(i + 1) * 18}px)`,
               }}
