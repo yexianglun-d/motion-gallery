@@ -21,7 +21,11 @@ export default function EffectCard({ effect, onOpen, index = 0 }) {
       aria-label={`查看 ${effect.name} 详情`}
       className="card-surface group flex w-full flex-col overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 hover:shadow-glow"
     >
-      <div className="h-[140px] border-b border-white/5 bg-ink-850/60">
+      <div
+        className="h-[140px] border-b border-white/5 bg-ink-850/60"
+        onClick={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
+      >
         <DemoStage
           demoId={effect.demo}
           params={params}

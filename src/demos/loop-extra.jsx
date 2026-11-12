@@ -40,11 +40,12 @@ function ShimmerDemo({ params, compact }) {
   )
 }
 
-function CountUpDemo({ params, compact }) {
+function CountUpDemo({ params, compact, replayKey }) {
   const d = num(params, 'duration', 1.5)
   const [value, setValue] = useState(0)
   useEffect(() => {
     let raf
+    setValue(0)
     const start = performance.now()
     const tick = (now) => {
       const p = Math.min((now - start) / (d * 1000), 1)
@@ -53,7 +54,7 @@ function CountUpDemo({ params, compact }) {
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [d])
+  }, [d, replayKey])
   return (
     <Stage>
       <span className="font-mono font-bold" style={{ fontSize: compact ? 26 : 34 }}>
@@ -63,11 +64,12 @@ function CountUpDemo({ params, compact }) {
   )
 }
 
-function TypewriterDemo({ params, compact }) {
+function TypewriterDemo({ params, compact, replayKey }) {
   const d = num(params, 'duration', 1.6)
   const text = 'Hello'
   const [n, setN] = useState(0)
   useEffect(() => {
+    setN(0)
     const step = (d * 1000) / text.length
     const id = setInterval(() => {
       setN((v) => {
@@ -79,7 +81,7 @@ function TypewriterDemo({ params, compact }) {
       })
     }, step)
     return () => clearInterval(id)
-  }, [d])
+  }, [d, replayKey])
   return (
     <Stage>
       <span className="font-mono" style={{ fontSize: compact ? 18 : 22 }}>
@@ -91,12 +93,13 @@ function TypewriterDemo({ params, compact }) {
 }
 
 const SCRAMBLE_CHARS = '!<>-_\\/[]{}=+*^?#________'
-function ScrambleDemo({ params, compact }) {
+function ScrambleDemo({ params, compact, replayKey }) {
   const d = num(params, 'duration', 1.4)
   const target = 'MOTION'
   const [output, setOutput] = useState('')
   useEffect(() => {
     let frame = 0
+    setOutput('')
     const totalFrames = Math.round(d * 30)
     const id = setInterval(() => {
       frame += 1
@@ -116,7 +119,7 @@ function ScrambleDemo({ params, compact }) {
       }
     }, 33)
     return () => clearInterval(id)
-  }, [d])
+  }, [d, replayKey])
   return (
     <Stage>
       <span className="font-mono" style={{ fontSize: compact ? 16 : 20 }}>
