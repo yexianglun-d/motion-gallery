@@ -48,7 +48,7 @@ export default {
         },
         'overlay-in': {
           from: { opacity: '0' },
-          to { opacity: '1' },
+          to: { opacity: '1' },
         },
       },
       animation: {

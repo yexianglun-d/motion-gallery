@@ -200,7 +200,7 @@ export default [
       framer: `import { motion } from 'framer-motion'
 
 const container = {
-  show: { transition: staggerChildren: 0.13 },
+  show: { transition: { staggerChildren: 0.13 } },
 }
 const item = {
   hidden: { opacity: 0, y: 12 },
