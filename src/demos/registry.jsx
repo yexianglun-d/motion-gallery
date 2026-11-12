@@ -165,7 +165,7 @@ function GlassDemo() {
         <div className="absolute -left-4 top-6 h-20 w-20 rounded-full bg-brand-500/70 blur-xl" />
         <div className="absolute bottom-4 right-2 h-24 w-24 rounded-full bg-aqua-500/60 blur-xl" />
       </div>
-      <div className="relative rounded-2xl border border-white/25 bg-white/10 px-5 py-4 text-sm text-white">
+      <div className="relative rounded-2xl border border-white/25 bg-white/10 px-5 py-4 text-sm text-white backdrop-blur-md">
         Glassmorphism
       </div>
     </Stage>
@@ -267,8 +267,8 @@ function ProgressRingDemo({ params, compact }) {
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={circumference * (1 - progress / 100)}
+          style={{ transition: `stroke-dashoffset ${d}s ease` }}
         />
-        <style>{''}</style>
       </svg>
     </Stage>
   )
