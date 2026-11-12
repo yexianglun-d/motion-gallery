@@ -1,0 +1,59 @@
+/* 演示动效关键帧。幅度类通过 CSS 自定义变量传入，便于参数实时调节。 */
+
+@keyframes demo-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes demo-slide-up {
+  from { opacity: 0; transform: translateY(var(--amount, 40px)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes demo-slide-down {
+  from { opacity: 0; transform: translateY(calc(-1 * var(--amount, 40px))); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes demo-slide-left {
+  from { opacity: 0; transform: translateX(var(--amount, 60px)); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes demo-slide-right {
+  from { opacity: 0; transform: translateX(calc(-1 * var(--amount, 60px))); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes demo-scale-in {
+  from { opacity: 0; transform: scale(0.55); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes demo-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(var(--pulse-scale, 1.1)); }
+}
+
+@keyframes demo-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes demo-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(calc(-1 * var(--amount, 6px))); }
+  40% { transform: translateX(var(--amount, 6px)); }
+  60% { transform: translateX(calc(-0.6 * var(--amount, 6px))); }
+  80% { transform: translateX(calc(0.6 * var(--amount, 6px))); }
+}
+
+@keyframes demo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * var(--amount, 12px))); }
+}
+
+@keyframes demo-gradient-flow {
+  to { background-position: 200% center; }
+}
+
+@keyframes demo-ripple {
+  from { opacity: 0.6; transform: scale(0); }
+  to { opacity: 0; transform: scale(2.5); }
+}

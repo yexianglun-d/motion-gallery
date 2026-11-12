@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- 基础 ---------- */
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink-900 text-slate-200 font-sans antialiased;
+  background-image:
+    radial-gradient(900px 500px at 85% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
+    radial-gradient(700px 420px at -10% 0%, rgba(34, 211, 238, 0.12), transparent 55%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.4);
+  color: #fff;
+}
+
+/* ---------- 滚动条 ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #273152 transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #273152;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #334066;
+  background-clip: content-box;
+}
+
+/* ---------- 焦点可达性 ---------- */
+:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------- 复用组件类 ---------- */
+@layer components {
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #818cf8, #22d3ee);
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-white/5 bg-ink-800/80 backdrop-blur-sm;
+  }
+
+  .control-range {
+    @apply h-1.5 w-full cursor-pointer appearance-none rounded-full bg-ink-600;
+  }
+  .control-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #818cf8, #22d3ee);
+    border: 2px solid #0b1020;
+    box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.6);
+  }
+  .control-range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #818cf8, #22d3ee);
+    border: 2px solid #0b1020;
+  }
+}
+
+/* ---------- Prism 代码高亮覆盖 ---------- */
+pre[class*='language-'] {
+  margin: 0;
+  border-radius: 0;
+  background: transparent !important;
+  font-size: 13px;
+  line-height: 1.7;
+  text-shadow: none !important;
+}
+code[class*='language-'] {
+  font-family: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+  text-shadow: none !important;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #5b6b8c;
+}
+.token.punctuation {
+  color: #94a3b8;
+}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #c084fc;
+}
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #86efac;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #67e8f9;
+  background: transparent !important;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #f0abfc;
+}
+.token.function,
+.token.class-name {
+  color: #7dd3fc;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #fca5a5;
+}
+
+/* ---------- 尊重系统减弱动效偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
