@@ -294,7 +294,8 @@ function TiltDemo({ params, compact }) {
           const rect = ref.current.getBoundingClientRect()
           const px = (e.clientX - rect.left) / rect.width - 0.5
           const py = (e.clientY - rect.top) / rect.height - 0.5
-          setManual({ rx: py * -max, ry: px * max })}
+          setManual({ rx: py * -max, ry: px * max })
+        }}
         onMouseLeave={() => setManual(null)}
         style={{ perspective: 600 }}
       >
