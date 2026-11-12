@@ -149,7 +149,13 @@ function DragDemo() {
     const sy = e.clientY
     const bx = pos.x
     const by = pos.y
-    function move(ev) { setPos({ x: bx + ev.clientX - sx, y: by + ev.clientY })
+    function move(ev) { setPos({ x: bx + ev.clientX - sx, y: by + ev.clientY - sy }) }
+    function up() {
+      document.removeEventListener('pointermove', move)
+      document.removeEventListener('pointerup', up)
+    }
+    document.addEventListener('pointermove', move)
+    document.addEventListener('pointerup', up)
   }
   return (
     <Stage>
