@@ -1,0 +1,200 @@
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { X, RotateCcw, SlidersHorizontal } from 'lucide-react'
+import DemoStage from '../demos/registry.jsx'
+import { defaultParams } from '../data/effects/index.js'
+import { getCategory } from '../data/categories.js'
+import CodeBlock from './CodeBlock.jsx'
+
+const TABS = [
+  { id: 'css', label: 'CSS', language: 'css' },
+  { id: 'gsap', label: 'GSAP', language: 'javascript' },
+  { id: 'framer', label: 'Framer Motion', language: 'jsx' },
+]
+
+export default function DetailDrawer({ effect, onClose, onCopy }) {
+  const [tab, setTab] = useState('css')
+  const [params, setParams] = useState({})
+  const [replayKey, setReplayKey] = useState(0)
+  const closeRef = useRef(null)
+
+  useEffect(() => {
+    if (!effect) return undefined
+    setParams(defaultParams(effect))
+    setTab('css')
+    setReplayKey((k) => k + 1)
+    document.body.style.overflow = 'hidden'
+    closeRef.current?.focus()
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [effect, onClose])
+
+  function updateParam(key, value, isNumber) {
+    setParams((prev) => ({ ...prev, [key]: isNumber ? Number(value) : value }))
+  }
+
+  const activeTab = TABS.find((t) => t.id === tab)
+  const category = effect ? getCategory(effect.category) : null
+
+  return (
+    <AnimatePresence>
+      {effect && (
+        <div className="fixed inset-0 z-40">
+          <motion.div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            aria-hidden="true"
+          />
+
+          <motion.section
+            role="dialog"
+            aria-modal="true"
+            aria-label={effect.name}
+            className="absolute right-0 top-0 flex h-full w-full flex-col border-l border-white/10 bg-ink-900 shadow-drawer md:w-[min(1020px,92vw)]"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', stiffness: 320, damping: 34 }}
+          >
+            <header className="flex items-center justify-between gap-3 border-b border-white/5 px-5 py-4">
+              <div className="min-w-0">
+                <div className="text-[11px] uppercase tracking-wide text-brand-300">
+                  {category?.name}
+                </div>
+                <h2 className="truncate text-base font-semibold text-white">{effect.name}</h2>
+              </div>
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={onClose}
+                aria-label="关闭详情"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+              >
+                <X size={18} />
+              </button>
+            </header>
+
+            <p className="border-b border-white/5 px-5 py-3 text-xs leading-relaxed text-slate-400">
+              {effect.description}
+            </p>
+
+            <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+              <div className="flex h-[46vh] shrink-0 flex-col border-b border-white/5 md:h-auto md:w-[44%] md:border-b-0 md:border-r">
+                <div className="flex items-center justify-between px-4 py-2.5">
+                  <span className="text-xs font-medium text-slate-400">实时预览</span>
+                  <button
+                    type="button"
+                    onClick={() => setReplayKey((k) => k + 1)}
+                    className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-xs text-slate-300 transition hover:bg-white/5 hover:text-white"
+                  >
+                    <RotateCcw size={13} />
+                    重播
+                  </button>
+                </div>
+
+                <div className="min-h-0 flex-1 bg-ink-850/50">
+                  <DemoStage
+                    demoId={effect.demo}
+                    params={params}
+                    replayKey={replayKey}
+                    active
+                  />
+                </div>
+
+                <div className="max-h-[38%] shrink-0 overflow-auto border-t border-white/5 px-4 py-3">
+                  <div className="mb-2 flex items-center gap-1.5 text-xs font-medium text-slate-400">
+                    <SlidersHorizontal size={13} />
+                    参数调节
+                  </div>
+                  {effect.controls.length === 0 ? (
+                    <p className="text-xs text-slate-600">该动效为静态风格，暂无可调参数</p>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      {effect.controls.map((control) => (
+                        <div key={control.key}>
+                          <div className="mb-1 flex items-center justify-between text-xs">
+                            <label htmlFor={`ctrl-${control.key}`} className="text-slate-400">
+                              {control.label}
+                            </label>
+                            <span className="font-mono text-[11px] text-brand-300">
+                              {params[control.key]}
+                            </span>
+                          </div>
+
+                          {control.type === 'range' ? (
+                            <input
+                              id={`ctrl-${control.key}`}
+                              type="range"
+                              className="control-range"
+                              min={control.min}
+                              max={control.max}
+                              step={control.step}
+                              value={params[control.key] ?? control.default}
+                              onChange={(e) => updateParam(control.key, e.target.value, true)}
+                            />
+                          ) : (
+                            <select
+                              id={`ctrl-${control.key}`}
+                              value={params[control.key] ?? control.default}
+                              onChange={(e) => updateParam(control.key, e.target.value, false)}
+                              className="w-full rounded-lg border border-white/10 bg-ink-800 px-2.5 py-1.5 text-xs text-slate-200"
+                            >
+                              {control.options.map((opt) => (
+                                <option key={opt} value={opt}>
+                                  {opt}
+                                </option>
+                              ))}
+                            </select>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex min-h-0 flex-1 flex-col">
+                <div role="tablist" aria-label="实现方式" className="flex gap-1 border-b border-white/5 px-4 py-2">
+                  {TABS.map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={tab === t.id}
+                      onClick={() => setTab(t.id)}
+                      className={
+                        'rounded-lg px-3 py-1.5 text-xs transition ' +
+                        (tab === t.id
+                          ? 'bg-white/10 text-white'
+                          : 'text-slate-400 hover:bg-white/5 hover:text-slate-200')
+                      }
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="min-h-0 flex-1 bg-ink-950/40">
+                  <CodeBlock
+                    code={effect.implementations[activeTab.id]}
+                    language={activeTab.language}
+                    onCopy={() => onCopy(effect.implementations[activeTab.id])}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.section>
+        </div>
+      )}
+    </AnimatePresence>
+  )
+}
