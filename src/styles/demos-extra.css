@@ -103,13 +103,13 @@
 }
 @keyframes demo-cube {
   0% { transform: rotateX(0) rotateY(0); }
-  100% { transform: rotateX(360deg) rotateY(360deg); }
+  100% { transform: rotateX(360px) rotateY(360deg); }
 }
 @keyframes demo-motion-blur {
   0%   { transform: translateX(-70px); filter: blur(0); }
   40%  { transform: translateX(70px); filter: blur(4px); }
-  50% { transform: translateX(70px); filter: blur(0); }
-  90% { transform: translateX(-70px); filter: blur(4px); }
+  50%  { transform: translateX(70px); filter: blur(0); }
+  90%  { transform: translateX(-70px); filter: blur(4px); }
   100% { transform: translateX(-70px); filter: blur(0); }
 }
 @keyframes demo-text-roll {
