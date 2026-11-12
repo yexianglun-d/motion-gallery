@@ -149,13 +149,7 @@ function DragDemo() {
     const sy = e.clientY
     const bx = pos.x
     const by = pos.y
-    function move(ev) { setPos({ x: bx + ev.clientX - sx, y: by + ev.clientY - sy }) }
-    function up() {
-      document.removeEventListener('pointermove', move)
-      document.removeEventListener('pointerup', up)
-    }
-    document.addEventListener('pointermove', move)
-    document.addEventListener('pointerup', up)
+    function move(ev) { setPos({ x: bx + ev.clientX - sx, y: by + ev.clientY })
   }
   return (
     <Stage>
@@ -194,7 +188,7 @@ function HoldDemo({ params, compact }) {
         onPointerDown={begin}
         onPointerUp={end}
         onPointerLeave={end}
-        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-ink-700 text-xs text-white"
+        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-ink-700 text-xs text-slate-700"
         style={{ width: size, height: size }}
       >
         <span
