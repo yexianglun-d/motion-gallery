@@ -48,7 +48,7 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
       {effect && (
         <div className="fixed inset-0 z-40">
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -60,45 +60,45 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
             role="dialog"
             aria-modal="true"
             aria-label={effect.name}
-            className="absolute right-0 top-0 flex h-full w-full flex-col border-l border-white/10 bg-ink-900 shadow-drawer md:w-[min(1020px,92vw)]"
+            className="absolute right-0 top-0 flex h-full w-full flex-col border-l border-slate-200 bg-ink-900 shadow-drawer md:w-[min(1020px,92vw)]"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 320, damping: 34 }}
           >
             {/* 头部 */}
-            <header className="flex items-center justify-between gap-3 border-b border-white/5 px-5 py-4">
+            <header className="flex items-center justify-between gap-3 border-b border-slate-200 px-5 py-4">
               <div className="min-w-0">
-                <div className="text-[11px] uppercase tracking-wide text-brand-300">
+                <div className="text-[11px] uppercase tracking-wide text-brand-600">
                   {category?.name}
                 </div>
-                <h2 className="truncate text-base font-semibold text-white">{effect.name}</h2>
+                <h2 className="truncate text-base font-semibold text-slate-900">{effect.name}</h2>
               </div>
               <button
                 ref={closeRef}
                 type="button"
                 onClick={onClose}
                 aria-label="关闭详情"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:bg-slate-900/5 hover:text-slate-900"
               >
                 <X size={18} />
               </button>
             </header>
 
-            <p className="border-b border-white/5 px-5 py-3 text-xs leading-relaxed text-slate-400">
+            <p className="border-b border-slate-200 px-5 py-3 text-xs leading-relaxed text-slate-500">
               {effect.description}
             </p>
 
             {/* 主体：预览 + 源码 */}
             <div className="flex min-h-0 flex-1 flex-col md:flex-row">
               {/* 左：预览与参数 */}
-              <div className="flex h-[46vh] shrink-0 flex-col border-b border-white/5 md:h-auto md:w-[44%] md:border-b-0 md:border-r">
+              <div className="flex h-[46vh] shrink-0 flex-col border-b border-slate-200 md:h-auto md:w-[44%] md:border-b-0 md:border-r">
                 <div className="flex items-center justify-between px-4 py-2.5">
-                  <span className="text-xs font-medium text-slate-400">实时预览</span>
+                  <span className="text-xs font-medium text-slate-500">实时预览</span>
                   <button
                     type="button"
                     onClick={() => setReplayKey((k) => k + 1)}
-                    className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-xs text-slate-300 transition hover:bg-white/5 hover:text-white"
+                    className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900"
                   >
                     <RotateCcw size={13} />
                     重播
@@ -114,22 +114,22 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
                   />
                 </div>
 
-                <div className="max-h-[38%] shrink-0 overflow-auto border-t border-white/5 px-4 py-3">
-                  <div className="mb-2 flex items-center gap-1.5 text-xs font-medium text-slate-400">
+                <div className="max-h-[38%] shrink-0 overflow-auto border-t border-slate-200 px-4 py-3">
+                  <div className="mb-2 flex items-center gap-1.5 text-xs font-medium text-slate-500">
                     <SlidersHorizontal size={13} />
                     参数调节
                   </div>
                   {effect.controls.length === 0 ? (
-                    <p className="text-xs text-slate-600">该动效为静态风格，暂无可调参数</p>
+                    <p className="text-xs text-slate-400">该动效为静态风格，暂无可调参数</p>
                   ) : (
                     <div className="flex flex-col gap-3">
                       {effect.controls.map((control) => (
                         <div key={control.key}>
                           <div className="mb-1 flex items-center justify-between text-xs">
-                            <label htmlFor={`ctrl-${control.key}`} className="text-slate-400">
+                            <label htmlFor={`ctrl-${control.key}`} className="text-slate-500">
                               {control.label}
                             </label>
-                            <span className="font-mono text-[11px] text-brand-300">
+                            <span className="font-mono text-[11px] text-brand-600">
                               {params[control.key]}
                             </span>
                           </div>
@@ -150,7 +150,7 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
                               id={`ctrl-${control.key}`}
                               value={params[control.key] ?? control.default}
                               onChange={(e) => updateParam(control.key, e.target.value, false)}
-                              className="w-full rounded-lg border border-white/10 bg-ink-800 px-2.5 py-1.5 text-xs text-slate-200"
+                              className="w-full rounded-lg border border-slate-200 bg-ink-800 px-2.5 py-1.5 text-xs text-slate-700"
                             >
                               {control.options.map((opt) => (
                                 <option key={opt} value={opt}>
@@ -168,7 +168,7 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
 
               {/* 右：源码 */}
               <div className="flex min-h-0 flex-1 flex-col">
-                <div role="tablist" aria-label="实现方式" className="flex gap-1 border-b border-white/5 px-4 py-2">
+                <div role="tablist" aria-label="实现方式" className="flex gap-1 border-b border-slate-200 px-4 py-2">
                   {TABS.map((t) => (
                     <button
                       key={t.id}
@@ -179,8 +179,8 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
                       className={
                         'rounded-lg px-3 py-1.5 text-xs transition ' +
                         (tab === t.id
-                          ? 'bg-white/10 text-white'
-                          : 'text-slate-400 hover:bg-white/5 hover:text-slate-200')
+                          ? 'bg-slate-900/10 text-slate-900'
+                          : 'text-slate-500 hover:bg-slate-900/5 hover:text-slate-700')
                       }
                     >
                       {t.label}
