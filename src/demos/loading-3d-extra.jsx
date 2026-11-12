@@ -123,7 +123,8 @@ function SpotlightDemo({ compact }) {
       <div
         onMouseMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect()
-          setManual({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height })}
+          setManual({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height })
+        }}
         onMouseLeave={() => setManual(null)}
         className="rounded-xl border border-white/10"
         style={{
@@ -145,7 +146,8 @@ function CursorFollowerDemo({ compact }) {
     <Stage
       onMouseMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect()
-        setManual({ x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 })}
+        setManual({ x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 })
+      }}
       onMouseLeave={() => setManual(null)}
     >
       <span
@@ -176,7 +178,8 @@ function DepthParallaxDemo({ compact }) {
           const b = ref.current.getBoundingClientRect()
           const px = (e.clientX - b.left) / b.width - 0.5
           const py = (e.clientY - b.top) / b.height - 0.5
-          setManual({ rx: py * -14, ry: px * 14 })}
+          setManual({ rx: py * -14, ry: px * 14 })
+        }}
         onMouseLeave={() => setManual(null)}
         style={{ perspective: 700 }}
       >
