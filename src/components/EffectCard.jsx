@@ -29,7 +29,7 @@ export default function EffectCard({ effect, onOpen, index = 0 }) {
       className="card-surface group flex w-full flex-col overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 hover:shadow-glow"
     >
       <div
-        className="h-[140px] border-b border-white/5 bg-ink-850/60"
+        className="h-[140px] border-b border-slate-200 bg-ink-850/60"
         onClick={(e) => e.stopPropagation()}
         onPointerDown={(e) => e.stopPropagation()}
       >
@@ -42,10 +42,10 @@ export default function EffectCard({ effect, onOpen, index = 0 }) {
         />
       </div>
       <div className="flex flex-col gap-2 p-4">
-        <h3 className="text-sm font-semibold text-slate-100 group-hover:text-white">{effect.name}</h3>
+        <h3 className="text-sm font-semibold text-slate-800 group-hover:text-slate-900">{effect.name}</h3>
         <div className="flex flex-wrap gap-1.5">
           {effect.tags.map((t) => (
-            <span key={t} className="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-slate-400">
+            <span key={t} className="rounded-md bg-slate-900/5 px-2 py-0.5 text-[11px] text-slate-500">
               {t}
             </span>
           ))}

@@ -5,24 +5,24 @@ export default {
     extend: {
       colors: {
         ink: {
-          950: '#070b16',
-          900: '#0b1020',
-          850: '#0f1528',
-          800: '#141b30',
-          700: '#1c2540',
-          600: '#273152',
-          500: '#334066',
+          950: '#e7ecf3',
+          900: '#ffffff',
+          850: '#f6f8fb',
+          800: '#ffffff',
+          700: '#f1f5f9',
+          600: '#e5eaf1',
+          500: '#d6dce6',
         },
         brand: {
-          300: '#a5b4fc',
-          400: '#818cf8',
+          300: '#818cf8',
+          400: '#6366f1',
           500: '#6366f1',
           600: '#4f46e5',
         },
         aqua: {
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4',
+          300: '#22d3ee',
+          400: '#06b6d4',
+          500: '#0891b2',
         },
       },
       fontFamily: {
@@ -37,9 +37,9 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'Consolas', 'monospace'],
       },
       boxShadow: {
-        card: '0 12px 32px -16px rgba(0, 0, 0, 0.7)',
-        glow: '0 0 0 1px rgba(99,102,241,0.35), 0 10px 34px -10px rgba(99,102,241,0.5)',
-        drawer: '-20px 0 60px -20px rgba(0,0,0,0.8)',
+        card: '0 10px 30px -16px rgba(15, 23, 42, 0.18)',
+        glow: '0 0 0 1px rgba(99,102,241,0.25), 0 14px 34px -14px rgba(99,102,241,0.35)',
+        drawer: '-20px 0 60px -24px rgba(15,23,42,0.25)',
       },
       keyframes: {
         'fade-up': {
