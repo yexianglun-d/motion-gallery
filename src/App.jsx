@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import TopBar from './components/TopBar.jsx'
-import CategoryTabs from './components/CategoryTabs.jsx'
-import EffectGrid from './components/EffectGrid.jsx'
+import CategoryTabs from './components/EffectGrid.jsx'
 import DetailDrawer from './components/DetailDrawer.jsx'
 import Toast from './components/Toast.jsx'
 import Footer from './components/Footer.jsx'
@@ -21,6 +20,7 @@ export default function App() {
     toastTimer.current = setTimeout(() => setToast(''), 2000)
   }, [])
 
+  // 复制代码：优先 Clipboard API，失败时降级
   const handleCopy = useCallback(
     async (text) => {
       try {

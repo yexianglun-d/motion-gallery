@@ -48,7 +48,6 @@
 @keyframes demo-glitch {
   0%, 100% { transform: translate(0); }
   20% { transform: translate(-2px, 2px); }
-  20% { transform: translate(-2px, 2px); }
   40% { transform: translate(-2px, -2px); }
   60% { transform: translate(2px, 2px); }
   80% { transform: translate(2px, -2px); }
@@ -57,6 +56,7 @@
   0%, 100% { text-shadow: -1.5px 0 #f0abfc, 1.5px 0 #22d3ee; }
   25% { text-shadow: 1.5px 0 #f0abfc, -1.5px 0 #22d3ee; }
   50% { text-shadow: -2px 1px #f0abfc, 2px -1px #22d3ee; }
+  75% { text-shadow: 2px 0 #f0abfc, -2px 0 #22d3ee; }
 }
 @keyframes demo-morph {
   0%, 100% { border-radius: 20% 80% 70% 30% / 30% 30% 70% 70%; }
@@ -108,9 +108,9 @@
 @keyframes demo-motion-blur {
   0%   { transform: translateX(-70px); filter: blur(0); }
   40%  { transform: translateX(70px); filter: blur(4px); }
-  50%  { transform: translateX(70px); filter: blur(0); }
+  50% { transform: translateX(70px); filter: blur(0); }
   90% { transform: translateX(-70px); filter: blur(4px); }
-  100% { transform: translateX(-70px), filter: blur(0); }
+  100% { transform: translateX(-70px); filter: blur(0); }
 }
 @keyframes demo-text-roll {
   0%   { transform: translateY(0); }
