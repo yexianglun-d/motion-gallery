@@ -178,8 +178,8 @@ function HoldDemo({ params, compact }) {
             left: 0,
             bottom: 0,
             width: '100%',
-            height: `${prog * 100%}`,
-            background: 'linear-gradient(180deg,rgba(99,102,248,.5),rgba(34,211,238,.65))',
+            height: `${prog * 100}%`,
+            background: 'linear-gradient(180deg,rgba(99,102,241,.5),rgba(34,211,238,.65))',
           }}
         />
         <span className="relative">长按</span>
