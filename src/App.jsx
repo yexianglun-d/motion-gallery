@@ -19,7 +19,7 @@ export default function App() {
     setToast(message)
     if (toastTimer.current) clearTimeout(toastTimer.current)
     toastTimer.current = setTimeout(() => setToast(''), 2000)
-  })
+  }, [])
 
   // 复制代码：优先 Clipboard API，失败时降级
   const handleCopy = useCallback(

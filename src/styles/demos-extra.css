@@ -91,7 +91,7 @@
 /* ---- 3D / 空间 ---- */
 @keyframes demo-orbit {
   from { transform: rotate(0) translateX(var(--radius, 42px)) rotate(0); }
-  to   { transform: rotate(360px) translateX(var(--radius, 42px)) rotate(-36deg); }
+  to   { transform: rotate(360deg) translateX(var(--radius, 42px)) rotate(-360deg); }
 }
 @keyframes demo-rotate3d {
   from { transform: perspective(700px) rotateX(0) rotateY(0); }
@@ -108,8 +108,8 @@
 @keyframes demo-motion-blur {
   0%   { transform: translateX(-70px); filter: blur(0); }
   40%  { transform: translateX(70px); filter: blur(4px); }
-  50% { transform: translateX(70px); filter: blur(0); }
-  90% { transform: translateX(-70px); filter: blur(4px); }
+  50%  { transform: translateX(70px); filter: blur(0); }
+  90%  { transform: translateX(-70px); filter: blur(4px); }
   100% { transform: translateX(-70px); filter: blur(0); }
 }
 @keyframes demo-text-roll {
