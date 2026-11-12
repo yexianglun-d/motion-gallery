@@ -148,7 +148,6 @@ Draggable.create('.swipe', {
     id: 'drag',
     name: 'Drag 拖拽',
     category: 'interaction',
-    docs: ['交互', '手势'],
     demo: 'drag',
     tags: ['交互', '手势'],
     description: '元素可被自由拖动到指定范围内，松手停留，是最基础的拖拽交互。',
