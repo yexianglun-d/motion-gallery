@@ -3,6 +3,7 @@ import DemoStage from '../demos/registry.jsx'
 import { defaultParams } from '../data/effects/index.js'
 
 export default function EffectCard({ effect, onOpen, index = 0 }) {
+  // 0 表示尚未激活（静态起点）；挂载后自动播放，hover 时重播
   const [replayKey, setReplayKey] = useState(0)
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function EffectCard({ effect, onOpen, index = 0 }) {
         />
       </div>
       <div className="flex flex-col gap-2 p-4">
-        <h3 className="text-sm font-semibold text-slate-100 group-hover:text-white">{effect.name}</h3>
+        <h3 className="text-sm font-semibold text-slate-100">{effect.name}</h3>
         <div className="flex flex-wrap gap-1.5">
           {effect.tags.map((t) => (
             <span key={t} className="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-slate-400">

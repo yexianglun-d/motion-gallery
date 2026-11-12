@@ -18,6 +18,7 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
   const [replayKey, setReplayKey] = useState(0)
   const closeRef = useRef(null)
 
+  // 打开新动效时重置状态、锁定背景滚动、聚焦关闭按钮
   useEffect(() => {
     if (!effect) return undefined
     setParams(defaultParams(effect))
@@ -65,6 +66,7 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 320, damping: 34 }}
           >
+            {/* 头部 */}
             <header className="flex items-center justify-between gap-3 border-b border-white/5 px-5 py-4">
               <div className="min-w-0">
                 <div className="text-[11px] uppercase tracking-wide text-brand-300">
@@ -87,7 +89,9 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
               {effect.description}
             </p>
 
+            {/* 主体：预览 + 源码 */}
             <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+              {/* 左：预览与参数 */}
               <div className="flex h-[46vh] shrink-0 flex-col border-b border-white/5 md:h-auto md:w-[44%] md:border-b-0 md:border-r">
                 <div className="flex items-center justify-between px-4 py-2.5">
                   <span className="text-xs font-medium text-slate-400">实时预览</span>
@@ -113,7 +117,6 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
                 <div className="max-h-[38%] shrink-0 overflow-auto border-t border-white/5 px-4 py-3">
                   <div className="mb-2 flex items-center gap-1.5 text-xs font-medium text-slate-400">
                     <SlidersHorizontal size={13} />
-                    参数调节
                   </div>
                   {effect.controls.length === 0 ? (
                     <p className="text-xs text-slate-600">该动效为静态风格，暂无可调参数</p>
@@ -162,6 +165,7 @@ export default function DetailDrawer({ effect, onClose, onCopy }) {
                 </div>
               </div>
 
+              {/* 右：源码 */}
               <div className="flex min-h-0 flex-1 flex-col">
                 <div role="tablist" aria-label="实现方式" className="flex gap-1 border-b border-white/5 px-4 py-2">
                   {TABS.map((t) => (
